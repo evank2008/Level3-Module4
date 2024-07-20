@@ -9,7 +9,7 @@ public class _00_StackDemo {
          * added to it. The push() method is used to add objects to a Stack
          * and the pop() method is used to remove the *most recently added*
          * object from the Stack. For example, if 3 String objects are pushed,
-         * i.e. added, to a Stack
+         * i.e. added, to a Stack         
          * Stack<String> myStack = new Stack<String>();
          * myStack.push("A");                   // oldest object added
          * myStack.push("B");

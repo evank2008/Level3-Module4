@@ -1,4 +1,9 @@
 package _02_IntroToQueues;
+
+import java.util.ArrayDeque;
+import java.util.Random;
+import java.util.Stack;
+
 /* 
  * OBJECTIVE:
  * 1. Push 100 double values onto a Stack.
@@ -32,24 +37,40 @@ package _02_IntroToQueues;
 
 public class _01_IntroToQueue {
     public static void main(String[] args) {
+    	Random ran = new Random();
         // 1. Create a Stack of Doubles using the Stack class
         //    Note: you have to use the capitalized Double and not double
-
+    	Stack<Integer> stubble = new Stack<Integer>();
         // 2. Use a loop to add 100 random doubles between 0 and 100 to the Stack
-
+    	for(int i = 100; i>0;i--) {
+    		stubble.push(ran.nextInt(101));
+    	}
         // 3. Create a Queue of Doubles using the ArrayDeque class
         //    Note: you have to use the capitalized Double and not double
-
+    	ArrayDeque<Integer> ruble = new ArrayDeque<Integer>();
         // 4. Pop off 5 elements from the Stack and add them to the Queue 
-
+    	for(int i = 5; i>0; i--) {
+    		ruble.add(stubble.pop());
+    	}
         // 5. Print and remove a random number of elements, from 1 to 5 elements,
         //    from the front of the Queue. Example:
         //    "removing 3 elements from Queue: 25 57 2"
-
+    	while(!stubble.isEmpty()||!ruble.isEmpty()) {
+    	int pops = ran.nextInt(5)+1;
+    	System.out.print("removing these "+pops+" numbers: ");
+    	for(int i = pops;i>0;i--) {
+    		if(!ruble.isEmpty())
+    		System.out.print(ruble.remove()+" ");
+    	}
+    	System.out.println();
         // 6. Pop off as many elements from the stack to fill the Queue with 5
         //    elements. If there aren't enough elements in the Stack to fill the 
         //    queue, fill the queue as much as possible. 
-
+    	for(int i = pops; i>0; i--) {
+    		if(!stubble.isEmpty())
+    		ruble.add(stubble.pop());
+    	}
+    	}
         // 7. Loop until there are no more elements in either the Stack or Queue
         //    and all the elements are printed
         

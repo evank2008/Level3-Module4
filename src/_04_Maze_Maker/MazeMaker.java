@@ -5,13 +5,13 @@ import java.util.Random;
 import java.util.Stack;
 
 public class MazeMaker {
-
+//WORK LINE 54
     private static int rows;
     private static int cols;
 
     private static Maze maze;
 
-    private static Random randGen = new Random();
+    private static Random ran = new Random();
     private static Stack<Cell> uncheckedCells = new Stack<Cell>();
 
     public static Maze generateMaze(int r, int c) {
@@ -23,9 +23,10 @@ public class MazeMaker {
         //    This will be the starting point. Then select a random cell along
         //    the opposite wall and remove its exterior wall. This will be the
         //    finish line.
-        
+        maze.grid[0][ran.nextInt(cols)].setNorthWall(false);
+        maze.grid[rows-1][ran.nextInt(cols)].setSouthWall(false);
         // 2. select a random cell in the maze to start 
-        
+        selectNextPath(maze.grid[ran.nextInt(rows)][ran.nextInt(cols)]);
         // 3. call the selectNextPath method with the randomly selected cell
 
         return maze;
@@ -34,21 +35,25 @@ public class MazeMaker {
     // 4. Complete the selectNextPathMethod
     private static void selectNextPath(Cell currentCell) {
         // A. SET currentCell as visited
-
+    	currentCell.setBeenVisited(true);
         // B. check for unvisited neighbors using the cell
+    	ArrayList<Cell> UvNs=getUnvisitedNeighbors(maze.grid[currentCell.getRow()][currentCell.getCol()]);
 
         // C. if has unvisited neighbors,
-
+    	if(UvNs.size()>0) {
+    		Cell UvN = UvNs.get(ran.nextInt(UvNs.size()));
+    		uncheckedCells.push(UvN);
+    	
         // C1. select one at random.
 
         // C2. push it to the stack
-
+    	
         // C3. remove the wall between the two cells
-
+    		removeWalls(UvN,currentCell);
         // C4. make the new cell the current cell and SET it as visited
 
         // C5. call the selectNextPath method with the current cell
-
+    	}
 
         // D. if all neighbors are visited
 

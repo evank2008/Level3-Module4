@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class MazeMaker {
-//WORK LINE 54
+
     private static int rows;
     private static int cols;
 
@@ -34,16 +34,22 @@ public class MazeMaker {
 
     // 4. Complete the selectNextPathMethod
     private static void selectNextPath(Cell currentCell) {
+    	System.out.println("Current cell: " + currentCell.getRow() + ", " + currentCell.getCol());
         // A. SET currentCell as visited
     	currentCell.setBeenVisited(true);
         // B. check for unvisited neighbors using the cell
-    	ArrayList<Cell> UvNs=getUnvisitedNeighbors(maze.grid[currentCell.getRow()][currentCell.getCol()]);
-
+    	ArrayList<Cell> UvNs=getUnvisitedNeighbors(currentCell);
+    	System.out.println("Current cell has "+UvNs.size()+" unvisited neighbors");
+    	System.out.print("Unvisited Neighbors: ");
+    	for(Cell c:UvNs) {
+    		System.out.print("("+c.getRow()+", "+c.getCol()+") ");
+    	}
+    	System.out.println("");
         // C. if has unvisited neighbors,
     	if(UvNs.size()>0) {
     		Cell UvN = UvNs.get(ran.nextInt(UvNs.size()));
     		uncheckedCells.push(UvN);
-    	
+    	System.out.println("Visiting neighbor at "+UvN.getRow()+", "+UvN.getCol());
         // C1. select one at random.
 
         // C2. push it to the stack
@@ -51,20 +57,24 @@ public class MazeMaker {
         // C3. remove the wall between the two cells
     		removeWalls(UvN,currentCell);
         // C4. make the new cell the current cell and SET it as visited
-
+    		currentCell=UvN;
+    		currentCell.setBeenVisited(true);
         // C5. call the selectNextPath method with the current cell
+    		selectNextPath(currentCell);
     	}
 
         // D. if all neighbors are visited
-
+    	if(UvNs.size()==0) {
         // D1. if the stack is not empty
-
+    		if(!uncheckedCells.isEmpty()) {
         // D1a. pop a cell from the stack
-
+    			currentCell=uncheckedCells.pop();
         // D1b. make that the current cell
-
+    			System.out.println("Ran out of unvisited neighbors. Moving to "+currentCell.getCol()+", "+currentCell.getRow());
         // D1c. call the selectNextPath method with the current cell
-
+    			selectNextPath(currentCell);
+    		}
+    	}
     }
 
     // This method will check if c1 and c2 are adjacent.
